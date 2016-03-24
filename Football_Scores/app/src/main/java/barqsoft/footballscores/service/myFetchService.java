@@ -23,6 +23,7 @@ import java.util.TimeZone;
 import java.util.Vector;
 
 import barqsoft.footballscores.DatabaseContract;
+import barqsoft.footballscores.PagerFragment;
 import barqsoft.footballscores.R;
 
 /**
@@ -39,8 +40,9 @@ public class myFetchService extends IntentService
     @Override
     protected void onHandleIntent(Intent intent)
     {
-        getData("n2");
-        getData("p2");
+
+        getData("n"+PagerFragment.NUM_DAYS_FUTURE);
+        getData("p"+PagerFragment.NUM_DAYS_PAST);
 
         return;
     }

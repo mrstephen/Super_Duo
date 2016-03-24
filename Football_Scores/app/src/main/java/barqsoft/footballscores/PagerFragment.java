@@ -20,10 +20,12 @@ import java.util.Date;
  */
 public class PagerFragment extends Fragment
 {
-    public static final int NUM_PAGES = 5;
+    public static final int NUM_DAYS_PAST = 4;
+    public static final int NUM_DAYS_FUTURE = 3;
+    public static final int NUM_PAGES = NUM_DAYS_PAST + NUM_DAYS_FUTURE;
     public ViewPager mPagerHandler;
     private myPageAdapter mPagerAdapter;
-    private MainScreenFragment[] viewFragments = new MainScreenFragment[5];
+    private MainScreenFragment[] viewFragments = new MainScreenFragment[NUM_PAGES];
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -32,7 +34,7 @@ public class PagerFragment extends Fragment
         mPagerAdapter = new myPageAdapter(getChildFragmentManager());
         for (int i = 0;i < NUM_PAGES;i++)
         {
-            Date fragmentdate = new Date(System.currentTimeMillis()+((i-2)*86400000));
+            Date fragmentdate = new Date(System.currentTimeMillis()+((i-NUM_DAYS_PAST)*86400000));
             SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
             viewFragments[i] = new MainScreenFragment();
             viewFragments[i].setFragmentDate(mformat.format(fragmentdate));
@@ -41,6 +43,7 @@ public class PagerFragment extends Fragment
         mPagerHandler.setCurrentItem(MainActivity.current_fragment);
         return rootView;
     }
+
     private class myPageAdapter extends FragmentStatePagerAdapter
     {
         @Override
@@ -63,7 +66,7 @@ public class PagerFragment extends Fragment
         @Override
         public CharSequence getPageTitle(int position)
         {
-            return getDayName(getActivity(),System.currentTimeMillis()+((position-2)*86400000));
+            return getDayName(getActivity(),System.currentTimeMillis()+((position-NUM_DAYS_PAST)*86400000));
         }
         public String getDayName(Context context, long dateInMillis) {
             // If the date is today, return the localized version of "Today" instead of the actual

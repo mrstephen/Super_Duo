@@ -4,7 +4,7 @@
 
     <uses-permission
         android:name="android.permission.INTERNET"
-        android:maxSdkVersion="22" />
+        android:maxSdkVersion="23" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,8 @@
 
         <provider
             android:name=".ScoresProvider"
-            android:authorities="barqsoft.footballscores" />
+            android:authorities="barqsoft.footballscores"
+            android:exported="true" />
 
         <activity
             android:name=".AboutActivity"
@@ -35,6 +36,9 @@
         </activity>
 
         <service android:name=".service.myFetchService" />
+
+        <service android:name="barqsoft.footballscores.ListViewService"
+        android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <receiver android:name="layout.FootballScoresAppWidget">
             <intent-filter>
